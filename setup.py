@@ -9,7 +9,8 @@ setup(
         # Le tue dipendenze da requirements.txt
         "streamlit",
         "pandas",
-        "OpenPyXL"
+        "openpyxl",
+        "python-dotenv"
         # aggiungi le altre...
     ],
     python_requires=">=3.8",

@@ -11,22 +11,26 @@ pip install streamlit pandas openpyxl python-dotenv requests
 
 2. Start the app:
 ```bash
-streamlit run EDI_forecast/app.py
+python EDI_forecast/run.py
 ```
 
 ## Structure
 
 ```
 EDI_forecast/
-  app.py
-  pages/
+  run.py
+  src/app.py
+  src/data/
+  src/pages/
     info_page.py
     registration_page.py
     login_page.py
     profile_page.py
     upload_forecast_page.py
     logout_page.py
-  utils/
+    view_forecast_page.py
+    user_list.py
+  src/utils/
     auth.py
     config.py
     email_utils.py
