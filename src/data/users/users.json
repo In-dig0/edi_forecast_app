@@ -1,0 +1,26 @@
+{
+  "baravellir@gmail.com": {
+    "name": "Riccardo",
+    "surname": "Baravelli",
+    "email": "baravellir@gmail.com",
+    "role": "sales_role",
+    "activation_code": "5Z4JT9",
+    "is_active": "True",
+    "created_at": "2025-10-19T19:48:25.850126",
+    "otp_expires_at": "2025-10-27T13:26:39.896642",
+    "login_code": "QA6B03",
+    "company": "IPH Spa"
+  },
+  "baravelli.riccardo@hotmail.com": {
+    "name": "Trevor",
+    "surname": "Reznik",
+    "email": "baravelli.riccardo@hotmail.com",
+    "role": "admin_role",
+    "activation_code": "CKJHM1",
+    "is_active": true,
+    "created_at": "2025-10-19T21:57:34.204722",
+    "otp_expires_at": "2025-10-26T15:09:33.011124",
+    "login_code": "OI5EUM",
+    "company": "Cybertech Inc."
+  }
+}

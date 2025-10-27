@@ -1,0 +1,17 @@
+version: '3.13'
+
+services:
+  edi-forecast:
+    build: .
+    container_name: edi_forecast_app
+    ports:
+      - "8501:8501"
+    volumes:
+      # Monta la cartella data dell'host nella cartella data del container
+      - ./src/data:/edi_forecast_app/src/data
+      # Opzionale: monta anche logs se vuoi mantenerli persistenti
+      - ./logs:/edi_forecast_app/logs
+    environment:
+      - PYTHONUNBUFFERED=1
+      - TZ=Europe/Rome
+    restart: unless-stopped
