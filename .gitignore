@@ -71,15 +71,15 @@ error.log
 # Data Files (SENSIBILI)
 # ============================================
 # File utenti (contiene password/dati sensibili)
-data/users/users.json
+src/data/users/users.json
 
 # Backup files (file Excel e TXT potenzialmente grandi)
-data/backup/*.xlsx
-data/backup/*.xls
-data/backup/*.txt
+src/data/backup/*.xlsx
+src/data/backup/*.xls
+srcdata/backup/*.txt
 
 # Output forecast (risultati elaborazioni)
-data/output/forecasts/*.json
+src/data/output/forecasts/*.json
 
 # Se vuoi tenere la struttura ma non i contenuti, decommenta:
 # data/input/*
