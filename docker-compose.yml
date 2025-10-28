@@ -14,4 +14,8 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
       - TZ=Europe/Rome
+    env_file:
+      - .env
     restart: unless-stopped
+
+    
