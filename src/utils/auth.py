@@ -5,7 +5,10 @@ import string
 from datetime import datetime, timedelta
 from utils.email_utils import mailjet_send_email
 from utils.config import USERS_FILE, ALLOWED_DOMAINS
+from src.utils.logger import setup_logger
 
+# Inizializza il logger per questa pagina
+logger = setup_logger("login_page")
 
 # -----------------------------
 # FUNZIONI BASE
@@ -30,11 +33,16 @@ def load_users():
     return {k.lower(): v for k, v in data.items()}
 
 
-def save_users(users: dict):
+def save_users(users: dict) -> tuple[bool, str]:
     """Salva gli utenti nel file JSON"""
-    with open(USERS_FILE, "w", encoding="utf-8") as f:
-        json.dump(users, f, indent=2, ensure_ascii=False)
+    try:
+        with open(USERS_FILE, "w", encoding="utf-8") as f:
+            json.dump(users, f, indent=2, ensure_ascii=False)
 
+    except Exception as e:
+        logger.error(f"Error saving users: {e}")
+        return False, str(e)
+    return True, "Users saved successfully"
 
 def is_allowed_domain(email):
     """Verifica che il dominio email sia consentito"""
@@ -61,7 +69,7 @@ def get_all_users():
 # -----------------------------
 # REGISTRAZIONE / ATTIVAZIONE
 # -----------------------------
-def register_user(name, surname, email, role="sales_user"):
+def register_user(name, surname, email, role="sales_user") -> tuple[bool, str]:
     email = email.strip().lower()
     if not is_allowed_domain(email):
         return False, "Dominio email non ammesso."
@@ -91,11 +99,15 @@ def register_user(name, surname, email, role="sales_user"):
         f"Il tuo codice di attivazione è: {activation_code}\n"
         "Questo codice scadrà tra 10 minuti."
     )
-    mailjet_send_email(email, subject, message)
-    return True, "Codice di attivazione inviato via email."
+    rcode, rmsg = mailjet_send_email(email, subject, message)
+    if rcode is False:
+        logger.error(f"Error sending activation email: {rmsg}")
+        return False, f"Errore invio email: {rmsg}"
+    else:
+        return True, "Codice di attivazione inviato via email."
 
 
-def activate_user(email, activation_code):
+def activate_user(email, activation_code) -> tuple[bool, str]:
     email = email.strip().lower()
     users = load_users()
     user = users.get(email)
@@ -130,7 +142,7 @@ def send_login_code(email):
 
     otp = generate_otp()
     user["login_code"] = otp
-    user["otp_expires_at"] = (datetime.now() + timedelta(minutes=480)).isoformat()
+    user["otp_expires_at"] = (datetime.now() + timedelta(minutes=600)).isoformat()
 
     users[email] = user
     save_users(users)
@@ -142,8 +154,13 @@ def send_login_code(email):
         f"Il tuo codice di accesso è: {otp}\n"
         "Inseriscilo entro 10 minuti per accedere."
     )
-    mailjet_send_email(email, subject, message)
-    return True, "Codice di accesso inviato via email."
+    rcode, rmsg = mailjet_send_email(email, subject, message)
+    if rcode is False:
+        logger.error(f"Error sending  login code: {rmsg}")
+        return False, f"Errore invio codice di accesso: {rmsg}"
+    else:
+        return True, "Codice di accesso inviato via email."
+
 
 
 def verify_token(email, token):
@@ -202,8 +219,12 @@ def update_user_data(email, updates, allow_role_change=False):
     user = users[email]
     user.update(updates)
     users[email] = user
-    save_users(users)
-    return True, "User data updated successfully"
+    rcode, rmsg = save_users(users)
+    if rcode is False:
+        logger.error(f"Error updating user data for {email}: {rmsg}")
+        return False, f"Errore aggiornamento dati: {rmsg}"
+    else:
+        return True, "User data updated successfully."
 
 
 def get_user_data(email):
