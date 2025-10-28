@@ -22,6 +22,8 @@ EXPOSE 8501
 # Configura Streamlit per accettare connessioni da qualsiasi IP
 ENV STREAMLIT_SERVER_ADDRESS=0.0.0.0
 ENV STREAMLIT_SERVER_PORT=8501
+ENV TZ=Europe/Rome
+ENV DOCKER_CONTAINER=true
 
 # Comando per avviare l'applicazione tramite run.py
 CMD ["python", "run.py"]
