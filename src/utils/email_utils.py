@@ -1,7 +1,11 @@
 import requests
+from src.utils.logger import setup_logger
 from utils.config import MAILJET_URL, MAILJET_API_KEY, MAILJET_API_SECRET, MAILJET_SENDER_EMAIL, MAILJET_SENDER_NAME, DEBUG_MODE
 
-def mailjet_send_email(to_email: str, subject: str, text_content: str) -> (bool, str):
+# Inizializza il logger per questa pagina
+logger = setup_logger("login_page")
+
+def mailjet_send_email(to_email: str, subject: str, text_content: str) -> (tuple[bool, str]):
     if MAILJET_API_KEY and MAILJET_API_SECRET:
         try:
             url = MAILJET_URL
@@ -17,6 +21,6 @@ def mailjet_send_email(to_email: str, subject: str, text_content: str) -> (bool,
         except Exception as e:
             return False, f"Exception sending email: {e}"
     else:
-        if DEBUG_MODE:
-            print("=== DEBUG EMAIL ===\nTo:", to_email, "\nSubject:", subject, "\nBody:", text_content, "\n==============")
-        return True, ""
+        logger.error("Mailjet API keys are not set. Email not sent.")
+        logger.debug("=== DEBUG EMAIL ===\nTo: %s\nSubject: %s\nBody: %s\n==============", to_email, subject, text_content)
+        return False, "Mailjet API keys are not set. Email not sent."
