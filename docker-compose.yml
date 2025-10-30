@@ -1,11 +1,12 @@
-version: '3.13'
+#version: '3.13'
+networks:
+  reverse-proxy:
+    external: true
 
 services:
   edi-forecast:
     build: .
     container_name: edi_forecast_app
-    ports:
-      - "8501:8501"
     volumes:
       # Monta la cartella data dell'host nella cartella data del container
       - ./src/data:/edi_forecast_app/src/data
@@ -16,6 +17,10 @@ services:
       - TZ=Europe/Rome
     env_file:
       - .env
+    networks:
+      - reverse-proxy    
+    ports:
+      - "8501:8501"      
     restart: unless-stopped
 
     
