@@ -3,6 +3,7 @@ import time
 from src.utils.sidebar_style import apply_sidebar_style
 from src.utils.auth import send_login_code, verify_token, get_user_by_email
 from src.utils.logger import setup_logger
+from src.utils.notification_utils import apprise_send_notification
 
 
 # Inizializza il logger per questa pagina
@@ -71,6 +72,12 @@ def page():
                 if ok:
                     logger.info(f"User logged in successfully: {login_email}")
                     st.success("✅ Logged in successfully!")
+                    apprise_send_notification(
+                        title="User Login",
+                        message=f"User with email {login_email} has logged in.",
+                        priority=3,
+                        tags=["login", "user"]
+                    )
                     st.session_state["logged_in"] = True
                     st.session_state["user_email"] = login_email
                     st.session_state["_pending_login_email"] = ""
@@ -80,3 +87,9 @@ def page():
                 else:
                     logger.warning(f"Login failed for {login_email}: {msg}")
                     st.error(f"❌ {msg or 'Invalid or expired OTP.'}")
+                    apprise_send_notification(
+                        title="Failed Login Attempt",
+                        message=f"Failed login attempt for email {login_email}. Reason: {msg or 'Invalid or expired OTP.'}",
+                        priority=5,
+                        tags=["login", "user", "failed"]
+                    )

@@ -23,13 +23,20 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 os.makedirs(LOG_DIR, exist_ok=True)
 
 # Configurazioni email
-ALLOWED_DOMAINS = ["@gmail.com", "@hotmail.com", "@iph.it"]
+ALLOWED_DOMAINS = ["@iph.it"]
 MAILJET_URL = os.getenv("MAILJET_URL", "https://api.mailjet.com/v3.1/send")
 MAILJET_API_KEY = os.getenv("MAILJET_API_KEY")
 MAILJET_API_SECRET = os.getenv("MAILJET_API_SECRET")
 MAILJET_SENDER_EMAIL = os.getenv("MAILJET_SENDER_EMAIL", "noreply@forecastapp.com")
 MAILJET_SENDER_NAME = os.getenv("MAILJET_SENDER_NAME", "Forecast WebApp")
 DEBUG_MODE = os.getenv("DEBUG_MODE", "False").lower() == "true"
+
+# Configurazioni invio notifiche con APPRISE
+APPRISE_URL = os.getenv("APPRISE_URL")
+APPRISE_NTFY_HOST = os.getenv("APPRISE_NTFY_HOST")  
+APPRISE_NTFY_TOPIC = os.getenv("APPRISE_NTFY_TOPIC")
+
+
 
 # Configurazioni APP
 APP_URL = os.getenv("APP_URL", "http://localhost:8501/")
