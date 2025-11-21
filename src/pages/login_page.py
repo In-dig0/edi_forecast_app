@@ -72,12 +72,14 @@ def page():
                 if ok:
                     logger.info(f"User logged in successfully: {login_email}")
                     st.success("✅ Logged in successfully!")
-                    apprise_send_notification(
+                    retcode, retmsg = apprise_send_notification(
                         title="User Login",
                         message=f"User with email {login_email} has logged in.",
                         priority=3,
                         tags=["login", "user"]
                     )
+                    if not retcode:
+                        logger.error(f"Failed to send notification for successful login: {retmsg}")
                     st.session_state["logged_in"] = True
                     st.session_state["user_email"] = login_email
                     st.session_state["_pending_login_email"] = ""
@@ -87,9 +89,11 @@ def page():
                 else:
                     logger.warning(f"Login failed for {login_email}: {msg}")
                     st.error(f"❌ {msg or 'Invalid or expired OTP.'}")
-                    apprise_send_notification(
+                    retcode, retmsg = apprise_send_notification(
                         title="Failed Login Attempt",
                         message=f"Failed login attempt for email {login_email}. Reason: {msg or 'Invalid or expired OTP.'}",
                         priority=5,
                         tags=["login", "user", "failed"]
                     )
+                    if not retcode:
+                        logger.error(f"Failed to send notification for failed login attempt: {retmsg}")
