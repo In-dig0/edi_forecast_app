@@ -45,6 +45,6 @@ APP_VERSION = "1.0.0"
 
 # Configurazioni LOGGING
 # Livelli disponibili: DEBUG, INFO, WARNING, ERROR, CRITICAL
-LOG_LEVEL = os.getenv("APP_LOG_LEVEL", "DEBUG").upper()
+LOG_LEVEL = os.getenv("APP_LOG_LEVEL", "INFO").upper()
 LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 LOG_DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
