@@ -66,7 +66,6 @@ def apprise_send_notification(title: str, message: str, priority: int = 3, tags:
         logger.debug(f"APPRISE_URL: {apprise_url}")
         logger.debug(f"APPRISE_NTFY_HOST: {APPRISE_NTFY_HOST}")
         logger.debug(f"APPRISE_NTFY_TOPIC: {APPRISE_NTFY_TOPIC}")
-        logger.debug(f"APPRISE_TOKEN: {APPRISE_TOKEN[:20]}..." if APPRISE_TOKEN else "No token")
         logger.debug(f"Title: {title}")
         logger.debug(f"Message: {message}")
         logger.debug(f"Priority: {priority}")
