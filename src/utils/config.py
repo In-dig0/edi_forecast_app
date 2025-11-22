@@ -35,7 +35,7 @@ DEBUG_MODE = os.getenv("DEBUG_MODE", "False").lower() == "true"
 APPRISE_URL = os.getenv("APPRISE_URL")
 APPRISE_NTFY_HOST = os.getenv("APPRISE_NTFY_HOST")  
 APPRISE_NTFY_TOPIC = os.getenv("APPRISE_NTFY_TOPIC")
-
+APPRISE_TOKEN = os.getenv("APPRISE_TOKEN")
 
 
 # Configurazioni APP
@@ -45,6 +45,6 @@ APP_VERSION = "1.0.0"
 
 # Configurazioni LOGGING
 # Livelli disponibili: DEBUG, INFO, WARNING, ERROR, CRITICAL
-LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
+LOG_LEVEL = os.getenv("APP_LOG_LEVEL", "DEBUG").upper()
 LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 LOG_DATE_FORMAT = "%Y-%m-%d %H:%M:%S"

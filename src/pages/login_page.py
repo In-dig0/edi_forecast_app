@@ -4,6 +4,7 @@ from src.utils.sidebar_style import apply_sidebar_style
 from src.utils.auth import send_login_code, verify_token, get_user_by_email
 from src.utils.logger import setup_logger
 from src.utils.notification_utils import apprise_send_notification
+from utils.config import APP_NAME
 
 
 # Inizializza il logger per questa pagina
@@ -72,11 +73,12 @@ def page():
                 if ok:
                     logger.info(f"User logged in successfully: {login_email}")
                     st.success("✅ Logged in successfully!")
+                    # Notifica di successo con markdown e priorità corretta
                     retcode, retmsg = apprise_send_notification(
-                        title="User Login",
-                        message=f"User with email {login_email} has logged in.",
-                        priority=3,
-                        tags=["login", "user"]
+                        title=f"🔑 {APP_NAME}: User Login",
+                        message=f"User with email **{login_email}** has logged in successfully.",
+                        priority=1,  # Default priority
+                        #tags=["white_check_mark", "unlock"]  # Emoji tags
                     )
                     if not retcode:
                         logger.error(f"Failed to send notification for successful login: {retmsg}")
@@ -88,12 +90,12 @@ def page():
                     st.rerun()
                 else:
                     logger.warning(f"Login failed for {login_email}: {msg}")
-                    st.error(f"❌ {msg or 'Invalid or expired OTP.'}")
+                    st.error(f"{msg or 'Invalid or expired OTP.'}")
                     retcode, retmsg = apprise_send_notification(
-                        title="Failed Login Attempt",
-                        message=f"Failed login attempt for email {login_email}. Reason: {msg or 'Invalid or expired OTP.'}",
+                        title=f"❌ {APP_NAME}: Failed Login Attempt",
+                        message=f"Error: failed login attempt for email **{login_email}**.\nReason: *{msg or 'Invalid or expired OTP.'}*",
                         priority=5,
-                        tags=["login", "user", "failed"]
+                        #tags=["login", "user", "failed"]
                     )
                     if not retcode:
                         logger.error(f"Failed to send notification for failed login attempt: {retmsg}")

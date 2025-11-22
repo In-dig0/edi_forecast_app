@@ -8,6 +8,8 @@ import json
 from src.utils.sidebar_style import apply_sidebar_style
 from src.utils.config import OUTPUT_DIR, BACKUP_DIR
 from src.utils.logger import setup_logger
+from src.utils.notification_utils import apprise_send_notification
+from utils.config import APP_NAME
 
 # Inizializza il logger per questa pagina
 logger = setup_logger("upload_forecast_page")
@@ -108,7 +110,7 @@ def page():
         st.divider()
         col1, col2, col3 = st.columns([1, 2, 1])
         with col2:
-            if st.button("🔄 Reset interface and start new upload", type="primary", use_container_width=True, key="reset_after_save"):
+            if st.button("🔄 Reset interface and start new upload", type="primary", width='stretch', key="reset_after_save"):
                 logger.info(f"User {user_email} reset interface after save")
                 st.session_state.df_forecast = None
                 st.session_state.cliente_selezionato = None
@@ -180,7 +182,7 @@ def page():
     
     upload_button = st.button(
         "⬆️ Upload file", 
-        use_container_width=True, 
+        width='stretch', 
         disabled=data_already_loaded,
         help="Upload is disabled because data is already loaded. Click 'Clear all' to upload a new file." if data_already_loaded else "Click to upload and process the file"
     )
@@ -279,7 +281,7 @@ def page():
         st.markdown(f"### 📋 Loaded data - Customer: **{st.session_state.cliente_selezionato}**")
 
         # 🔹 Clear all
-        if st.button("🗑️ Clear all", use_container_width=True):
+        if st.button("🗑️ Clear all", width='stretch'):
             logger.info(f"User {user_email} cleared loaded data")
             st.session_state.df_forecast = None
             st.session_state.cliente_selezionato = None
@@ -293,7 +295,7 @@ def page():
         # 🔹 Data editor
         edited_df = st.data_editor(
             st.session_state.df_forecast,
-            use_container_width=True,
+            width='stretch',
             num_rows="dynamic",
             disabled=["Index"],
             height=400,
@@ -313,7 +315,7 @@ def page():
             save_button = st.button(
                 "💾 SAVE", 
                 type="primary", 
-                use_container_width=True,
+                width='stretch',
                 disabled=save_already_done,
                 help="Save is disabled because data has already been saved. Click 'Reset interface' to start a new upload." if save_already_done else "Save all data and create backup files"
             )
@@ -381,6 +383,15 @@ def page():
                         
                         logger.info(f"Save operation completed successfully by {user_email} - {len(df_export)} records")
                         status_text.success(f"{action_icon} JSON forecast {action_msg}: `{os.path.basename(json_path)}`")
+                        
+                        retcode, retmsg = apprise_send_notification(
+                        title=f"✅ {APP_NAME}: File Saved Successfully",
+                        message=f"File {st.session_state.cliente_selezionato}_{st.session_state.uploaded_file_name} saved successfully by user **{user_email}**.",
+                        priority=3,  # Default priority
+                        #tags=["white_check_mark", "unlock"]  # Emoji tags
+                        )
+                    if not retcode:
+                        logger.error(f"Failed to send notification for successful login: {retmsg}")
                         progress_bar.progress(100)
                     
                     st.session_state.show_save_summary = True
