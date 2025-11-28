@@ -32,11 +32,12 @@ MAILJET_SENDER_NAME = os.getenv("MAILJET_SENDER_NAME", "Forecast WebApp")
 DEBUG_MODE = os.getenv("DEBUG_MODE", "False").lower() == "true"
 
 # Configurazioni invio notifiche con APPRISE
+APPRISE_NOTFICATION_ENABLED = os.getenv("APPRISE_NOTFICATION_ENABLED", "False").lower() == "true"
 APPRISE_URL = os.getenv("APPRISE_URL")
+APPRISE_TOKEN = os.getenv("APPRISE_TOKEN")
 APPRISE_NTFY_HOST = os.getenv("APPRISE_NTFY_HOST")  
 APPRISE_NTFY_TOPIC = os.getenv("APPRISE_NTFY_TOPIC")
-APPRISE_TOKEN = os.getenv("APPRISE_TOKEN")
-
+APPRISE_NTFY_TOKEN = os.getenv("APPRISE_NTFY_TOKEN")
 
 # Configurazioni APP
 APP_URL = os.getenv("APP_URL", "http://localhost:8501/")
