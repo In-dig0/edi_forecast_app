@@ -79,7 +79,7 @@ else:
     account_pages = [profile, logout]
     if user_role == "admin_role":
         # Menu per admin
-        menu_pages = [info, user_list]
+        menu_pages = [info, user_list, view_forecast]
     else:
         # Menu per sales_user (default)
         menu_pages = [info, upload_forecast, view_forecast]
