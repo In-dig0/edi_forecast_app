@@ -76,7 +76,7 @@ src/data/users/users.json
 # Backup files (file Excel e TXT potenzialmente grandi)
 src/data/backup/*.xlsx
 src/data/backup/*.xls
-srcdata/backup/*.txt
+src/data/backup/*
 
 # Output forecast (risultati elaborazioni)
 src/data/output/forecast/*.json
