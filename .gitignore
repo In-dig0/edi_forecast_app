@@ -79,7 +79,7 @@ src/data/backup/*.xls
 srcdata/backup/*.txt
 
 # Output forecast (risultati elaborazioni)
-src/data/output/forecasts/*.json
+src/data/output/forecast/*.json
 
 # Se vuoi tenere la struttura ma non i contenuti, decommenta:
 # data/input/*
