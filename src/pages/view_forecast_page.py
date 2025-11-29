@@ -151,7 +151,7 @@ def page():
                 
                 if records:
                     df = pd.DataFrame(records)
-                    st.dataframe(df, use_container_width=True, height=300)
+                    st.dataframe(df, width='stretch', height=300)
                     
                     col_download, col_delete = st.columns(2)
                     
@@ -166,13 +166,13 @@ def page():
                             data=excel_bytes,
                             file_name=f"forecast_{customer}_{timestamp}.xlsx",
                             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                            use_container_width=True,
+                            width='stretch',
                             key=f"download_{json_file}"
                         ):
                             logger.info(f"User {user_email} downloaded forecast: {json_file}")
                     
                     with col_delete:
-                        if st.button("🗑️ Delete record", use_container_width=True, key=f"delete_{json_file}"):
+                        if st.button("🗑️ Delete record", width='stretch', key=f"delete_{json_file}"):
                             try:
                                 os.remove(json_path)
                                 logger.info(f"User {user_email} deleted forecast record: {json_file}")
@@ -196,22 +196,22 @@ def page():
         nav_col1, nav_col2, nav_col3, nav_col4 = st.columns(4)
         
         with nav_col1:
-            if st.button("⏮️", disabled=st.session_state.current_page == 1, use_container_width=True, key="first_bottom"):
+            if st.button("⏮️", disabled=st.session_state.current_page == 1, width='stretch', key="first_bottom"):
                 st.session_state.current_page = 1
                 st.rerun()
         
         with nav_col2:
-            if st.button("◀️", disabled=st.session_state.current_page == 1, use_container_width=True, key="prev_bottom"):
+            if st.button("◀️", disabled=st.session_state.current_page == 1, width='stretch', key="prev_bottom"):
                 st.session_state.current_page -= 1
                 st.rerun()
         
         with nav_col3:
-            if st.button("▶️", disabled=st.session_state.current_page == total_pages, use_container_width=True, key="next_bottom"):
+            if st.button("▶️", disabled=st.session_state.current_page == total_pages, width='stretch', key="next_bottom"):
                 st.session_state.current_page += 1
                 st.rerun()
         
         with nav_col4:
-            if st.button("⏭️", disabled=st.session_state.current_page == total_pages, use_container_width=True, key="last_bottom"):
+            if st.button("⏭️", disabled=st.session_state.current_page == total_pages, width='stretch', key="last_bottom"):
                 st.session_state.current_page = total_pages
                 st.rerun()
     

@@ -31,7 +31,7 @@ def page():
     st.divider()
 
     # Bottone Logout con conferma
-    if st.button("🚪 LOGOUT", type="primary", use_container_width=True):
+    if st.button("🚪 LOGOUT", type="primary", width='stretch'):
         logger.debug(f"Logout button clicked by user: {email}")
         st.session_state["confirm_logout"] = True
         st.rerun()
@@ -44,13 +44,13 @@ def page():
         col1, col2 = st.columns(2)
         
         with col1:
-            if st.button("✅ Yes, Logout", use_container_width=True):
+            if st.button("✅ Yes, Logout", width='stretch'):
                 logger.info(f"User logged out successfully: {email}")
                 st.session_state.clear()
                 st.rerun()
         
         with col2:
-            if st.button("❌ Cancel", use_container_width=True):
+            if st.button("❌ Cancel", width='stretch'):
                 logger.debug(f"Logout cancelled by user: {email}")
                 st.session_state["confirm_logout"] = False
                 st.rerun()
