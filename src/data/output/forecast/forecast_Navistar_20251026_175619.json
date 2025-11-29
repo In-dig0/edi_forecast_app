@@ -1,0 +1,57 @@
+{
+    "customer": "Navistar",
+    "timestamp": "20251026_175619",
+    "original_filename": "_266CBDELFORNA.txt",
+    "records": [
+        {
+            "ORD.HYD": "DEF h    57    1",
+            "COD.CLIENTE": "07083158",
+            "COD. ART": "108639N91",
+            "DESCRIZIONE": "606XN003000000",
+            "OCLI GARE": "HWRB  -",
+            "QUANTITA": "40,00",
+            "CONSEGNA": "14.07.2025",
+            "ORD.VEN": "SI055A"
+        },
+        {
+            "ORD.HYD": "DEF h    57    5",
+            "COD.CLIENTE": "07083158",
+            "COD. ART": "108640N91",
+            "DESCRIZIONE": "606XN004000000",
+            "OCLI GARE": "HWRB  -",
+            "QUANTITA": "40,00",
+            "CONSEGNA": "14.07.2025",
+            "ORD.VEN": "SI055A"
+        },
+        {
+            "ORD.HYD": "DEF h    57    9",
+            "COD.CLIENTE": "07083158",
+            "COD. ART": "108641N91",
+            "DESCRIZIONE": "606XN005000000",
+            "OCLI GARE": "HWRB  -",
+            "QUANTITA": "40,00",
+            "CONSEGNA": "14.07.2025",
+            "ORD.VEN": "SI055A"
+        },
+        {
+            "ORD.HYD": "DEF h    57   13",
+            "COD.CLIENTE": "07083158",
+            "COD. ART": "108642N91",
+            "DESCRIZIONE": "606XN006000000",
+            "OCLI GARE": "HWRB  -",
+            "QUANTITA": "20,00",
+            "CONSEGNA": "14.07.2025",
+            "ORD.VEN": "SI055A"
+        },
+        {
+            "ORD.HYD": "DEF h    57   17",
+            "COD.CLIENTE": "07083158",
+            "COD. ART": "108643N91",
+            "DESCRIZIONE": "606XN002000000",
+            "OCLI GARE": "HWRB  -",
+            "QUANTITA": "30,00",
+            "CONSEGNA": "14.07.2025",
+            "ORD.VEN": "SI055A"
+        }
+    ]
+}
