@@ -143,7 +143,7 @@ def page():
     # -------------------------------
     cliente = st.selectbox(
         "Customer",
-        options=["", "Navistar", "Volvo", "Man"],
+        options=["", "Navistar", "Volvo", "Man", "Scania", "Iveco", "Renault", "DAF", "Mercedes-Benz"],
         index=0,
         key=f"cliente_input_{widget_version}",
         placeholder="Select a customer..."
